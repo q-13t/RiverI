@@ -46,7 +46,7 @@
 
 
 
-static int vsync = 1;
+
 
 static void glfw_error_callback(int error, const char* description) {
 	fprintf(stderr, "GLFW Error %d: %s\n", error, description);
@@ -88,7 +88,7 @@ int main(int, char**) {
 	if (window == nullptr)
 		return 1;
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(vsync); // Enable vsync
+
 
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -119,14 +119,36 @@ int main(int, char**) {
 #endif
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-
-
 	// States
-	static bool show_color_editor = true;
+	static bool b_file_operator = true;
+	static bool b_preview_panel = true;
 	static bool b_color_editor = true;
 	static bool docking = true;
+	static int vsync = 1;
+
+	//Values
+	static float arr_colors[16][4] =
+	{
+		{0.0f,0.0f,0.0f,0.0f}, // Brand
+		{0.0f,0.0f,0.0f,0.0f}, // Background
+		{0.0f,0.0f,0.0f,0.0f}, // Text Normal
+		{0.0f,0.0f,0.0f,0.0f}, // Text Hightlight
+		{0.0f,0.0f,0.0f,0.0f}, // Text Hidden 
+		{0.0f,0.0f,0.0f,0.0f}, // Header
+		{0.0f,0.0f,0.0f,0.0f}, // Accent 
+		{0.0f,0.0f,0.0f,0.0f}, // Side Menu 
+		{0.0f,0.0f,0.0f,0.0f}, // Top Menu 
+		{0.0f,0.0f,0.0f,0.0f}, // Footer 
+		{0.0f,0.0f,0.0f,0.0f}, // Button Normal 
+		{0.0f,0.0f,0.0f,0.0f}, // Button Hover 
+		{0.0f,0.0f,0.0f,0.0f}, // Button Push
+		{0.0f,0.0f,0.0f,0.0f}, // Image 1
+		{0.0f,0.0f,0.0f,0.0f}, // Image 2
+		{0.0f,0.0f,0.0f,0.0f}, // Image 3
+	};
 
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	glfwSwapInterval(vsync); // Enable vsync
 
 	// Main loop
 #ifdef __EMSCRIPTEN__
@@ -150,8 +172,8 @@ int main(int, char**) {
 		if (ImGui::BeginMainMenuBar()) {
 			if (ImGui::BeginMenu("Options")) {
 				if (ImGui::MenuItem("Color Editor", NULL, &b_color_editor)) {}
-				if (ImGui::MenuItem("Preview Panel", NULL, true)) {}
-				if (ImGui::MenuItem("File Saver", NULL, true)) {}
+				if (ImGui::MenuItem("Preview Panel", NULL, &b_preview_panel)) {}
+				if (ImGui::MenuItem("File Saver", NULL, &b_file_operator)) {}
 				if (ImGui::MenuItem("Docking", NULL, &docking)) LOG("Docking", docking);
 				if (ImGui::MenuItem("VSync", NULL, (vsync == 1 ? true : false))) {vsync = (vsync == 1 ? 0 : 1);LOG("Vsync",vsync);};
 				ImGui::EndMenu();
@@ -159,10 +181,12 @@ int main(int, char**) {
 			ImGui::EndMainMenuBar();
 		}
 		
-		if (b_color_editor) RiverI::ColorEditor::Render(&show_color_editor);
+		if (b_color_editor) RiverI::ColorEditor::Render(&b_color_editor, &arr_colors);
+		if (b_file_operator) //RiverI::ColorEditor::Render(&show_color_editor);
+		if (b_preview_panel) //RiverI::ColorEditor::Render(&show_color_editor);
 
 
-		//ImGui::ShowDemoWindow();
+		ImGui::ShowDemoWindow();
 
 		// Rendering
 		ImGui::Render();

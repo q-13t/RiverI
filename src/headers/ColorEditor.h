@@ -5,7 +5,7 @@ namespace RiverI {
 
 	class ColorEditor{
 	public:
-		static void Render(bool* V_Open);
+		static void Render(bool* V_Open, float(*arr_color)[16][4]);
 	};
 }
 
