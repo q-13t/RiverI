@@ -59,6 +59,7 @@ static void RiverI::HelpMarker(const char* desc) {
 #include <imgui_internal.h>
 
 
+#include <vector>
 #ifdef _DEBUG
 #include <iostream>
 #define LOG(message, value) std::cout << message << " : " << value << std::endl
@@ -147,25 +148,26 @@ int main(int, char**) {
 	static int vsync = 1;
 
 	//Values
-	static float arr_colors[16][4] =
+	static float arr_colors[16][4] =// TODO: Figure out how to pass them correctly
 	{
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Brand
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Background
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Text Normal
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Text Hightlight
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Text Hidden 
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Header
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Accent 
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Side Menu 
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Top Menu 
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Footer 
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Button Normal 
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Button Hover 
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Button Push
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Image 1
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Image 2
-		{0.0f, 0.0f, 0.0f, 0.0f}, // Image 3
+		{1.000f, 0.000f, 0.000f, 1.000f}, // Brand
+		{0.000f, 0.000f, 0.000f, 1.000f}, // Background
+		{1.000f, 1.000f, 1.000f, 1.000f}, // Text Normal
+		{0.000f, 1.000f, 0.102f, 1.000f}, // Text Hightlight
+		{0.400f, 0.400f, 0.400f, 1.000f}, // Text Hidden 
+		{0.843f, 0.000f, 0.000f, 1.000f}, // Header
+		{0.188f, 0.012f, 0.012f, 1.000f}, // Accent 
+		{0.141f, 0.102f, 0.102f, 1.000f}, // Side Menu 
+		{0.176f, 0.114f, 0.114f, 1.000f}, // Top Menu 
+		{0.067f, 0.051f, 0.051f, 1.000f}, // Footer 
+		{0.906f, 0.000f, 0.000f, 1.000f}, // Button Normal 
+		{0.624f, 0.000f, 0.000f, 1.000f}, // Button Hover 
+		{0.318f, 0.000f, 0.000f, 1.000f}, // Button Push
+		{0.753f, 0.443f, 0.443f, 1.000f}, // Image 1
+		{0.380f, 0.231f, 0.231f, 1.000f}, // Image 2
+		{0.153f, 0.075f, 0.075f, 1.000f} // Image 3
 	};
+
 
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	glfwSwapInterval(vsync); // Enable vsync
@@ -195,18 +197,18 @@ int main(int, char**) {
 				if (ImGui::MenuItem("Preview Panel", NULL, &b_preview_panel)) {}
 				if (ImGui::MenuItem("File Saver", NULL, &b_file_operator)) {}
 				if (ImGui::MenuItem("Docking", NULL, &docking)) LOG("Docking", docking);
-				if (ImGui::MenuItem("VSync", NULL, (vsync == 1 ? true : false))) {vsync = (vsync == 1 ? 0 : 1);LOG("Vsync",vsync);};
+				if (ImGui::MenuItem("VSync", NULL, (vsync == 1 ? true : false))) { vsync = (vsync == 1 ? 0 : 1); LOG("Vsync", vsync); };
 				ImGui::EndMenu();
 			}
 			ImGui::EndMainMenuBar();
 		}
-		
+
 		if (b_color_editor) RiverI::ColorEditor::Render(&b_color_editor, &arr_colors);
-		if (b_file_operator) //RiverI::ColorEditor::Render(&show_color_editor);
+		if (b_file_operator) RiverI::FileOperator::Render(&b_file_operator);
 		if (b_preview_panel) //RiverI::ColorEditor::Render(&show_color_editor);
 
 
-		ImGui::ShowDemoWindow();
+			ImGui::ShowDemoWindow();
 
 		// Rendering
 		ImGui::Render();
@@ -241,4 +243,4 @@ int main(int, char**) {
 	glfwTerminate();
 
 	return 0;
-	}
+}
