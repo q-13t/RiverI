@@ -10,6 +10,9 @@
 // - Introduction, links and more at the top of imgui.cpp
 
 
+
+
+
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -19,6 +22,23 @@
 #include <GLES2/gl2.h>
 #endif
 #include <GLFW/glfw3.h> // Will drag system OpenGL headers
+
+namespace RiverI {
+	static void HelpMarker(const char* desc);
+}
+
+
+static void RiverI::HelpMarker(const char* desc) {
+	ImGui::TextDisabled("(?)");
+
+	if (ImGui::BeginItemTooltip()) {
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+		ImGui::TextUnformatted(desc);
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
+}
+
 
 //RiverI headers
 #include "FileOperator.h"
@@ -129,22 +149,22 @@ int main(int, char**) {
 	//Values
 	static float arr_colors[16][4] =
 	{
-		{0.0f,0.0f,0.0f,0.0f}, // Brand
-		{0.0f,0.0f,0.0f,0.0f}, // Background
-		{0.0f,0.0f,0.0f,0.0f}, // Text Normal
-		{0.0f,0.0f,0.0f,0.0f}, // Text Hightlight
-		{0.0f,0.0f,0.0f,0.0f}, // Text Hidden 
-		{0.0f,0.0f,0.0f,0.0f}, // Header
-		{0.0f,0.0f,0.0f,0.0f}, // Accent 
-		{0.0f,0.0f,0.0f,0.0f}, // Side Menu 
-		{0.0f,0.0f,0.0f,0.0f}, // Top Menu 
-		{0.0f,0.0f,0.0f,0.0f}, // Footer 
-		{0.0f,0.0f,0.0f,0.0f}, // Button Normal 
-		{0.0f,0.0f,0.0f,0.0f}, // Button Hover 
-		{0.0f,0.0f,0.0f,0.0f}, // Button Push
-		{0.0f,0.0f,0.0f,0.0f}, // Image 1
-		{0.0f,0.0f,0.0f,0.0f}, // Image 2
-		{0.0f,0.0f,0.0f,0.0f}, // Image 3
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Brand
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Background
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Text Normal
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Text Hightlight
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Text Hidden 
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Header
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Accent 
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Side Menu 
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Top Menu 
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Footer 
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Button Normal 
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Button Hover 
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Button Push
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Image 1
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Image 2
+		{0.0f, 0.0f, 0.0f, 0.0f}, // Image 3
 	};
 
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
