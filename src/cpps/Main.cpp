@@ -59,9 +59,11 @@ static void RiverI::HelpMarker(const char* desc) {
 #include <imgui_internal.h>
 
 
-#include <vector>
-#ifdef _DEBUG
+
 #include <iostream>
+#include <map>
+#include <string>
+#ifdef _DEBUG
 #define LOG(message, value) std::cout << message << " : " << value << std::endl
 #endif // DEBUG
 
@@ -123,7 +125,7 @@ int main(int, char**) {
     //io.ConfigViewportsNoTaskBarIcon = true;
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
+    ImGui::StyleColorsClassic();
     //ImGui::StyleColorsLight();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
@@ -148,24 +150,43 @@ int main(int, char**) {
     static int vsync = 1;
 
     //Values
-    static float arr_colors[16][4] =// TODO: Figure out how to pass them correctly
-    {
-        {1.000f, 0.000f, 0.000f, 1.000f}, // Brand
-        {0.000f, 0.000f, 0.000f, 1.000f}, // Background
-        {1.000f, 1.000f, 1.000f, 1.000f}, // Text Normal
-        {0.000f, 1.000f, 0.102f, 1.000f}, // Text Hightlight
-        {0.400f, 0.400f, 0.400f, 1.000f}, // Text Hidden 
-        {0.843f, 0.000f, 0.000f, 1.000f}, // Header
-        {0.188f, 0.012f, 0.012f, 1.000f}, // Accent 
-        {0.141f, 0.102f, 0.102f, 1.000f}, // Side Menu 
-        {0.176f, 0.114f, 0.114f, 1.000f}, // Top Menu 
-        {0.067f, 0.051f, 0.051f, 1.000f}, // Footer 
-        {0.906f, 0.000f, 0.000f, 1.000f}, // Button Normal 
-        {0.624f, 0.000f, 0.000f, 1.000f}, // Button Hover 
-        {0.318f, 0.000f, 0.000f, 1.000f}, // Button Push
-        {0.753f, 0.443f, 0.443f, 1.000f}, // Image 1
-        {0.380f, 0.231f, 0.231f, 1.000f}, // Image 2
-        {0.153f, 0.075f, 0.075f, 1.000f} // Image 3
+    //static float arr_colors[16][4] =// TODO: Figure out how to pass them correctly
+    //{
+    //    {1.000f, 0.000f, 0.000f, 1.000f}, // Brand
+    //    {0.000f, 0.000f, 0.000f, 1.000f}, // Background
+    //    {1.000f, 1.000f, 1.000f, 1.000f}, // Text Normal
+    //    {0.000f, 1.000f, 0.102f, 1.000f}, // Text Hightlight
+    //    {0.400f, 0.400f, 0.400f, 1.000f}, // Text Hidden 
+    //    {0.843f, 0.000f, 0.000f, 1.000f}, // Header
+    //    {0.188f, 0.012f, 0.012f, 1.000f}, // Accent 
+    //    {0.141f, 0.102f, 0.102f, 1.000f}, // Side Menu 
+    //    {0.176f, 0.114f, 0.114f, 1.000f}, // Top Menu 
+    //    {0.067f, 0.051f, 0.051f, 1.000f}, // Footer 
+    //    {0.906f, 0.000f, 0.000f, 1.000f}, // Button Normal 
+    //    {0.624f, 0.000f, 0.000f, 1.000f}, // Button Hover 
+    //    {0.318f, 0.000f, 0.000f, 1.000f}, // Button Push
+    //    {0.753f, 0.443f, 0.443f, 1.000f}, // Image 1
+    //    {0.380f, 0.231f, 0.231f, 1.000f}, // Image 2
+    //    {0.153f, 0.075f, 0.075f, 1.000f}  // Image 3
+    //};
+    
+    static std::map<const char*, ImVec4*> colors{ 
+        { "Brand",             new ImVec4(1.000f, 0.000f, 0.000f, 1.000f)},
+        { "Background",        new ImVec4(0.000f, 0.000f, 0.000f, 1.000f)},
+        { "Text Normal",       new ImVec4(1.000f, 1.000f, 1.000f, 1.000f)},
+        { "Text Hightlight",   new ImVec4(0.000f, 1.000f, 0.102f, 1.000f)},
+        { "Text Hidden",       new ImVec4(0.400f, 0.400f, 0.400f, 1.000f)},
+        { "Header",            new ImVec4(0.843f, 0.000f, 0.000f, 1.000f)},
+        { "Accent",            new ImVec4(0.188f, 0.012f, 0.012f, 1.000f)},
+        { "Side Menu",         new ImVec4(0.141f, 0.102f, 0.102f, 1.000f)},
+        { "Top Menu",          new ImVec4(0.176f, 0.114f, 0.114f, 1.000f)},
+        { "Footer",            new ImVec4(0.067f, 0.051f, 0.051f, 1.000f)},
+        { "Button Normal",     new ImVec4(0.906f, 0.000f, 0.000f, 1.000f)},
+        { "Button Hover",      new ImVec4(0.624f, 0.000f, 0.000f, 1.000f)},
+        { "Button Push",       new ImVec4(0.318f, 0.000f, 0.000f, 1.000f)},
+        { "Image 1",           new ImVec4(0.753f, 0.443f, 0.443f, 1.000f)},
+        { "Image 2",           new ImVec4(0.380f, 0.231f, 0.231f, 1.000f)},
+        { "Image 3",           new ImVec4(0.153f, 0.075f, 0.075f, 1.000f)},
     };
 
 
@@ -203,9 +224,9 @@ int main(int, char**) {
             ImGui::EndMainMenuBar();
         }
 
-        if (b_color_editor) RiverI::ColorEditor::Render(&b_color_editor, &arr_colors);
+        if (b_color_editor) RiverI::ColorEditor::Render(&b_color_editor, &arr_colors, &colors);
         if (b_file_operator) RiverI::FileOperator::Render(&b_file_operator);
-        if (b_preview_panel) RiverI::PreviewPanel::Render(&b_preview_panel);
+        if (b_preview_panel) RiverI::PreviewPanel::Render(&b_preview_panel, &colors);
 
 
             ImGui::ShowDemoWindow();

@@ -1,9 +1,9 @@
 #include "ColorEditor.h"
 #include <imgui.h>
-
+#include <map>
+#include <iostream>
 
 #ifdef _DEBUG
-#include <iostream>
 #define LOG(message, value) std::cout << message << " : " << value << std::endl
 #endif // DEBUG
 
@@ -19,12 +19,11 @@ void RiverI::ColorEditor::HelpMarker(const char* desc) {
 }
 static bool printed = false;
 
-void RiverI::ColorEditor::Render(bool* V_Open, float(*arr_color)[16][4]) {
+void RiverI::ColorEditor::Render(bool* V_Open, std::map<const char*, ImVec4*>* colors) {
 #ifdef _DEBUG
     if (!printed) {
-        for (int i = 0; i < sizeof(*arr_color); i++){
-            std::cout << *arr_color[i][0]<<" " << *arr_color[i][1] << " " << *arr_color[i][2] << " " << *arr_color[i][3]  << std::endl;
-        }
+          for (const auto& n : *colors)
+              std::cout << n.first << " = " << n.second->w << n.second->x << n.second->y << n.second->z << "; \n";
         printed = true;
     }
 #endif
@@ -40,55 +39,17 @@ void RiverI::ColorEditor::Render(bool* V_Open, float(*arr_color)[16][4]) {
         "Right-click on the color square to show options.\n"
         "CTRL+click on individual component to input value.\n");
 
-    ImGui::SeparatorText("Brand");
-    ImGui::ColorEdit4("Brand", *arr_color[0]);
-    
-    ImGui::SeparatorText("Background");
-    ImGui::ColorEdit4("Background", *arr_color[1]);
-
-    ImGui::SeparatorText("Text Normal");
-    ImGui::ColorEdit4("Text Normal",*arr_color[2]);
-
-    ImGui::SeparatorText("Text Highlight");
-    ImGui::ColorEdit4("Text Highlight",*arr_color[3]);
-
-    ImGui::SeparatorText("Text Hidden");
-    ImGui::ColorEdit4("Text Hidden",*arr_color[4]);
-
-    ImGui::SeparatorText("Header");
-    ImGui::ColorEdit4("Header",*arr_color[5]);
-
-    ImGui::SeparatorText("Accent");
-    ImGui::ColorEdit4("Accent",*arr_color[6]);
-
-    ImGui::SeparatorText("Side Menu");
-    ImGui::ColorEdit4("Side Menu",*arr_color[7]);
-
-    ImGui::SeparatorText("Top Menu");
-    ImGui::ColorEdit4("Top Menu",*arr_color[8]);
-
-    ImGui::SeparatorText("Footer");
-    ImGui::ColorEdit4("Footer",*arr_color[9]);
-
-    ImGui::SeparatorText("Button Normal");
-    ImGui::ColorEdit4("Button Normal",*arr_color[10]);
-
-    ImGui::SeparatorText("Button Hover");
-    ImGui::ColorEdit4("Button Hover",*arr_color[11]);
-
-    ImGui::SeparatorText("Button Push");
-    ImGui::ColorEdit4("Button Push",*arr_color[12]);
-
-    ImGui::SeparatorText("Image 1");
-    ImGui::ColorEdit4("Image 1",*arr_color[13]);
-
-    ImGui::SeparatorText("Image 2");
-    ImGui::ColorEdit4("Image 2",*arr_color[14]);
-
-    ImGui::SeparatorText("Image 3");
-    ImGui::ColorEdit4("Image 3",*arr_color[15]);
-
+    for (auto n : *colors) {
+        ImGui::SeparatorText(n.first);
+        float arr[4] = { n.second->x, n.second->y, n.second->y, n.second->w };
+        if (ImGui::ColorEdit4(n.first, arr)) {
+            LOG("arr[3]:", arr[3]);
+            //delete n.second;
+            n.second->x = arr[0];
+            n.second->y = arr[1];
+            n.second->z = arr[2];
+            n.second->w = arr[3];
+        }
+    }
     ImGui::End();
 }
-
-

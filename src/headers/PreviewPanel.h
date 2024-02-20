@@ -2,6 +2,7 @@
 #define PREVIEW_PANEL_H
 
 #include <imgui.h>
+#include <map>
 
 namespace RiverI {
 	class PreviewPanel {
@@ -10,7 +11,7 @@ namespace RiverI {
 	public:
 		static ImVec4 getNegativeRGBA(ImVec4* color);
 		static ImVec2 getCursorForText(ImVec2* parent_size, const char* text);
-		static void Render(bool* V_Open);
+		static void Render(bool* V_Open, std::map<const char*, ImVec4*>* colors);
 	};
 }
 #endif

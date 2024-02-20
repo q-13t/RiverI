@@ -6,6 +6,7 @@
 #ifdef _DEBUG
 #define LOG(message, value) std::cout << message << " : " << value << std::endl
 #endif // DEBUG
+#include <map>
 
 void RiverI::PreviewPanel::HelpMarker(const char* desc) {
 	ImGui::TextDisabled("(?)");
@@ -28,7 +29,7 @@ ImVec2 RiverI::PreviewPanel::getCursorForText(ImVec2 *parent_size,const char *te
 	return ImVec2((parent_size->x / 2) - text_size.x, (parent_size->y / 2) - text_size.y);
 }
 
-void RiverI::PreviewPanel::Render(bool* V_Open) {
+void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* colors) {
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollWithMouse;
 	if (!ImGui::Begin("Preview Palete", V_Open, 0)) {
 		ImGui::End();
@@ -40,7 +41,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open) {
 	auto child_flags = ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_AutoResizeX;
 
 	ImVec2 brand_size = ImVec2(windowWidth, windowHeight * 0.1);
-	ImVec4 tmpCol = ImVec4(0.129f, 0.129f, 0.129f, 1.000f);
+	ImVec4 tmpCol = *colors->at("Brand");
 
 	// Brand
 	ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(tmpCol));
