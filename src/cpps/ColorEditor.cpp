@@ -44,7 +44,6 @@ void RiverI::ColorEditor::Render(bool* V_Open, std::map<const char*, ImVec4*>* c
         float arr[4] = { n.second->x, n.second->y, n.second->y, n.second->w };
         if (ImGui::ColorEdit4(n.first, arr)) {
             LOG("arr[3]:", arr[3]);
-            //delete n.second;
             n.second->x = arr[0];
             n.second->y = arr[1];
             n.second->z = arr[2];

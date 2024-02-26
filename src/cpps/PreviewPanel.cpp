@@ -19,8 +19,9 @@ void RiverI::PreviewPanel::HelpMarker(const char* desc) {
 	}
 }
 
-ImVec4 RiverI::PreviewPanel::getNegativeRGBA(ImVec4 *color) {
-	return ImVec4(std::abs(255 - color->w), std::abs(255 - color->x), std::abs(255 - color->y), color->z);
+ImVec4 RiverI::PreviewPanel::getContrastRGBA(ImVec4 *color) {
+	// x y z w
+	return ImVec4(color->x + 0.1 > 1.0 ? color->x - 0.1 : color->x + 0.1, color->y + 0.1 > 1.0 ? color->y - 0.1 : color->y + 0.1, color->z + 0.1 > 1.0 ? color->z - 0.1 : color->z + 0.1, color->w);
 }
 
 
@@ -52,7 +53,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 	ImGui::PopStyleColor();
 
 
-	ImVec2 side_nav_size = ImVec2(windowWidth * 0.3, ImGui::GetWindowSize().y * 0.8);
+	ImVec2 side_nav_size = ImVec2(windowWidth * 0.1, ImGui::GetWindowSize().y * 0.8);
 	ImVec2 side_nav_element_size = ImVec2(side_nav_size.x, (side_nav_size.y / 5));// TODO: replace 5 with elements
 
 	// Side nav
@@ -63,7 +64,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_A));
 				ImGui::BeginChild("Color A", side_nav_element_size);
 					ImGui::SetCursorPos(ImVec2(getCursorForText(&side_nav_element_size, "Color A")));
-					ImGui::TextColored(getNegativeRGBA(&Color_A), "Color A");// replace Imvec4 with getNegativeRGBA
+					ImGui::TextColored(getContrastRGBA(&Color_A), "Color A");// replace Imvec4 with getNegativeRGBA
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 			
@@ -71,7 +72,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_B));
 				ImGui::BeginChild("Color B", side_nav_element_size);
 					ImGui::SetCursorPos(ImVec2(getCursorForText(&side_nav_element_size, "Color B")));
-					ImGui::TextColored(getNegativeRGBA(&Color_B), "Color B");// replace Imvec4 with getNegativeRGBA
+					ImGui::TextColored(getContrastRGBA(&Color_B), "Color B");// replace Imvec4 with getNegativeRGBA
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 			
@@ -79,7 +80,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_C));
 				ImGui::BeginChild("Color C", side_nav_element_size);
 					ImGui::SetCursorPos(ImVec2(getCursorForText(&side_nav_element_size, "Color C")));
-					ImGui::TextColored(getNegativeRGBA(&Color_C), "Color C");// replace Imvec4 with getNegativeRGBA
+					ImGui::TextColored(getContrastRGBA(&Color_C), "Color C");// replace Imvec4 with getNegativeRGBA
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 			
@@ -87,7 +88,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_D));
 				ImGui::BeginChild("Color D", side_nav_element_size);
 					ImGui::SetCursorPos(ImVec2(getCursorForText(&side_nav_element_size, "Color D")));
-					ImGui::TextColored(getNegativeRGBA(&Color_D), "Color D");// replace Imvec4 with getNegativeRGBA
+					ImGui::TextColored(getContrastRGBA(&Color_D), "Color D");// replace Imvec4 with getNegativeRGBA
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 
@@ -98,8 +99,8 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 
 	ImVec2 panel_size = ImVec2(windowWidth * 0.7, ImGui::GetWindowSize().y * 0.8);
 	ImVec2 header_size = ImVec2(panel_size.x - 10, (panel_size.y * 0.1) - 10);
-	ImVec2 lorem_size = ImVec2(panel_size.x - 10, (panel_size.y * 0.3) );
-	ImVec2 image_size = ImVec2((panel_size.x / 3) - 10, (panel_size.y * 0.3) - 10);
+	ImVec2 lorem_size = ImVec2(panel_size.x - 10, (panel_size.y * 0.1) );
+	ImVec2 image_size = ImVec2((panel_size.x / 3) - 10, (panel_size.y * 0.1) - 10);
 
 	ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(tmpCol));
 		ImGui::BeginChild("Panel Nav", panel_size, child_flags);
@@ -108,14 +109,14 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_Black));//Headder
 				ImGui::BeginChild("Color 1", header_size);
 					ImGui::SetCursorPos(ImVec2(0, header_size.y / 2));
-					ImGui::TextColored(getNegativeRGBA(&Color_Black), "Color D");
+					ImGui::TextColored(getContrastRGBA(&Color_Black), "Color D");
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 			
 			//ImVec4 Color_Black = ImVec4(255, 150, 100, 100);
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_Black));//Lorem
 				ImGui::BeginChild("Color 2", lorem_size);
-					ImGui::TextColored(getNegativeRGBA(&Color_Black), "Color D");
+					ImGui::TextColored(getContrastRGBA(&Color_Black), "Color D");
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 
@@ -123,7 +124,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_Black));
 				ImGui::BeginChild("Color 3", image_size);
 					ImGui::SetCursorPos(ImVec2(getCursorForText(&image_size, "Color D")));
-					ImGui::TextColored(getNegativeRGBA(&Color_Black), "Color D");// replace Imvec4 with getNegativeRGBA
+					ImGui::TextColored(getContrastRGBA(&Color_Black), "Color D");// replace Imvec4 with getNegativeRGBA
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 
@@ -132,7 +133,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_Black));
 				ImGui::BeginChild("Color 4", image_size);
 					ImGui::SetCursorPos(ImVec2(getCursorForText(&image_size, "Color D")));
-					ImGui::TextColored(getNegativeRGBA(&Color_Black), "Color D");// replace Imvec4 with getNegativeRGBA
+					ImGui::TextColored(getContrastRGBA(&Color_Black), "Color D");// replace Imvec4 with getNegativeRGBA
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 
@@ -141,14 +142,14 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_Black));
 				ImGui::BeginChild("Color 5", image_size);
 					ImGui::SetCursorPos(ImVec2(getCursorForText(&image_size, "Color D")));
-					ImGui::TextColored(getNegativeRGBA(&Color_Black), "Color D");// replace Imvec4 with getNegativeRGBA
+					ImGui::TextColored(getContrastRGBA(&Color_Black), "Color D");// replace Imvec4 with getNegativeRGBA
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 
 			//ImVec4 Color_Black = ImVec4(255, 150, 100, 100);
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(Color_Black));//Lorem
 				ImGui::BeginChild("Color 6", lorem_size);
-					ImGui::TextColored(getNegativeRGBA(&Color_Black), "Color D");
+					ImGui::TextColored(getContrastRGBA(&Color_Black), "Color D");
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 		
@@ -167,7 +168,7 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 		ImGui::PushItemWidth(77);
 			while (footer_size.x > (cur_width += ImGui::CalcTextSize(text).x)) {
 				ImGui::SetCursorPos(ImVec2(0, footer_size.y / 2));
-				ImGui::SameLine(); ImGui::TextColored(getNegativeRGBA(&tmpCol), text);
+				ImGui::SameLine(); ImGui::TextColored(getContrastRGBA(&tmpCol), text);
 			} 
 		ImGui::PopItemWidth();
 		ImGui::EndChild();
