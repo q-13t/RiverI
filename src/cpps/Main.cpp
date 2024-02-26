@@ -159,7 +159,6 @@ int main(int, char**) {
         { "Header",            new ImVec4(0.843f, 0.000f, 0.000f, 1.000f)},
         { "Accent",            new ImVec4(0.188f, 0.012f, 0.012f, 1.000f)},
         { "Side Menu",         new ImVec4(0.141f, 0.102f, 0.102f, 1.000f)},
-        { "Top Menu",          new ImVec4(0.176f, 0.114f, 0.114f, 1.000f)},
         { "Footer",            new ImVec4(0.067f, 0.051f, 0.051f, 1.000f)},
         { "Button Normal",     new ImVec4(0.906f, 0.000f, 0.000f, 1.000f)},
         { "Button Hover",      new ImVec4(0.624f, 0.000f, 0.000f, 1.000f)},
