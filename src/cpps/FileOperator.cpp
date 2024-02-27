@@ -8,8 +8,9 @@
 
 #ifdef _DEBUG
 #define LOG(message, value) std::cout << message << " : " << value << std::endl
+#else
+#define LOG(message, value)
 #endif // DEBUG
-
 void RiverI::FileOperator::HelpMarker(const char* desc) {
 	ImGui::TextDisabled("(?)");
 

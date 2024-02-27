@@ -65,6 +65,8 @@ static void RiverI::HelpMarker(const char* desc) {
 #include <string>
 #ifdef _DEBUG
 #define LOG(message, value) std::cout << message << " : " << value << std::endl
+#else
+#define LOG(message, value)
 #endif // DEBUG
 
 
@@ -78,7 +80,7 @@ static void glfw_error_callback(int error, const char* description) {
 
 
 // Main code
-int main(int, char**) {
+int WinMain(int, char**) {
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;
@@ -208,7 +210,7 @@ int main(int, char**) {
         if (b_preview_panel) RiverI::PreviewPanel::Render(&b_preview_panel, &colors);
 
 
-            ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
 
         // Rendering
         ImGui::Render();
