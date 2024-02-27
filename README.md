@@ -1,9 +1,7 @@
 System: x64-Windows
 
 # RiverI
-
     RiverI is an UI development tool that allows to preview how different colors will look like together in an application.
-
 ___
 # How To Get
 
