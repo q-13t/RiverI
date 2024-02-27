@@ -105,9 +105,9 @@ void RiverI::PreviewPanel::Render(bool* V_Open, std::map<const char*, ImVec4*>* 
 
 			//Text Highlighted
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::ColorConvertFloat4ToU32(*colors->at("Background")));
-				ImGui::BeginChild("Text Hightlight 1", side_nav_element_size);
-					ImGui::SetCursorPos(ImVec2(getCursorForText(&side_nav_element_size, "Text Hightlight")));
-					ImGui::TextColored(*colors->at("Text Hightlight"), "Text Hightlight");
+				ImGui::BeginChild("Text Highlight 1", side_nav_element_size);
+					ImGui::SetCursorPos(ImVec2(getCursorForText(&side_nav_element_size, "Text Highlight")));
+					ImGui::TextColored(*colors->at("Text Highlight"), "Text Highlight");
 				ImGui::EndChild();
 			ImGui::PopStyleColor();
 			

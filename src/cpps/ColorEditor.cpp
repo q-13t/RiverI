@@ -23,7 +23,7 @@ void RiverI::ColorEditor::Render(bool* V_Open, std::map<const char*, ImVec4*>* c
 #ifdef _DEBUG
     if (!printed) {
           for (const auto& n : *colors)
-              std::cout << n.first << " = " << n.second->w << n.second->x << n.second->y << n.second->z << "; \n";
+              std::cout << n.first << " = " << n.second->x<<" " << n.second->y << " " << n.second->z << " " << n.second->w << "; \n";
         printed = true;
     }
 #endif

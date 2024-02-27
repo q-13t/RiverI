@@ -154,7 +154,7 @@ int main(int, char**) {
         { "Brand",             new ImVec4(1.000f, 0.000f, 0.000f, 1.000f)},
         { "Background",        new ImVec4(0.000f, 0.000f, 0.000f, 1.000f)},
         { "Text Normal",       new ImVec4(1.000f, 1.000f, 1.000f, 1.000f)},
-        { "Text Hightlight",   new ImVec4(0.000f, 1.000f, 0.102f, 1.000f)},
+        { "Text Highlight",   new ImVec4(0.000f, 1.000f, 0.102f, 1.000f)},
         { "Text Hidden",       new ImVec4(0.400f, 0.400f, 0.400f, 1.000f)},
         { "Header",            new ImVec4(0.843f, 0.000f, 0.000f, 1.000f)},
         { "Accent",            new ImVec4(0.188f, 0.012f, 0.012f, 1.000f)},
@@ -204,7 +204,7 @@ int main(int, char**) {
         }
 
         if (b_color_editor) RiverI::ColorEditor::Render(&b_color_editor, &colors);
-        if (b_file_operator) RiverI::FileOperator::Render(&b_file_operator);
+        if (b_file_operator) RiverI::FileOperator::Render(&b_file_operator, &colors);
         if (b_preview_panel) RiverI::PreviewPanel::Render(&b_preview_panel, &colors);
 
 
